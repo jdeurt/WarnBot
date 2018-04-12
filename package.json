@@ -4,8 +4,8 @@
   "description": "All it does is warn people.",
   "main": "bot.js",
   "scripts": {
-    "test": "nodemon bot.js",
-    "start": "pm2 run bot.js"
+    "test": "nodemon warner.js",
+    "start": "pm2 start warner.js"
   },
   "author": "",
   "license": "MIT",
