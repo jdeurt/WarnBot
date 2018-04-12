@@ -29,4 +29,19 @@ bot.on("message", msg => {
     });
 });
 
+bot.on("message", msg => {
+    if(!msg.content.startsWith("!wcount") || msg.channel.type !== "text" || !msg.mentions.users) return;
+    let user = msg.mentions.users.first();
+    sql.open("./warnings.sqlite").then(() => {
+        sql.get(`SELECT * FROM main WHERE id = "${toSQLReadable(user.id)}"`).then(row => {
+            if(!row) msg.channel.send("**Count:** `0`");
+            else msg.channel.send(`**Count:** \`${row.amt}\``);
+        }).catch(() => {
+            sql.run("CREATE TABLE IF NOT EXISTS main (id TEXT, amt INTEGER)").then(() => {
+                sql.run("INSERT INTO main (id, amt) VALUES (?, ?)", [toSQLReadable(user.id), 0]);
+            });
+        });
+    });
+});
+
 bot.login("");
