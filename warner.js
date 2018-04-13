@@ -11,7 +11,7 @@ function toSQLReadable(str = "") {
 }
 
 bot.on("message", msg => {
-    if(!msg.content.startsWith("!warn") || msg.channel.type !== "text" || !msg.mentions.users || !msg.content.split(" ")[1].includes("@"))) return;
+    if(!msg.content.startsWith("!warn") || msg.channel.type !== "text" || !msg.mentions.users || !msg.content.split(" ")[1].includes("@")) return;
     let user = msg.mentions.users.first();
     let reason = (msg.content.split(" ").length > 2) ? (msg.content.split(" ").slice(2).join(" ")) : ("--No reason stated.--");
     sql.open("./warnings.sqlite").then(() => {
